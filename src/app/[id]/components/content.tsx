@@ -1,7 +1,7 @@
 import { Box, Text, Flex, Span, } from "@chakra-ui/react";
 import { useAtom } from "jotai";
 import { useEffect, useRef, useState } from "react";
-import { hoveredWordIndexAtom, selectionAreaAtom, wordsAtom } from "../atoms/word-atoms";
+import { wordsAtom } from "../atoms/word-atoms";
 import { audioAtom, audioCurrentTimeAtom, audioPlayingAtom } from "../atoms/audio-atoms";
 
 export default function Content() {
