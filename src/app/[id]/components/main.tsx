@@ -7,7 +7,6 @@ import { useAtom } from "jotai";
 import { audioAtom, audioCurrentTimeAtom, audioPlayingAtom } from "../atoms/audio-atoms";
 import { selectedAreaAtom, wordsAtom } from "../atoms/word-atoms";
 import { Content } from "./content";
-//import { useHotkeys } from 'react-hotkeys-hook';
 import { isRecordingAtom } from "../atoms/recording-atoms";
 
 export const Main = ({ audioUrl, scriptUrl }: { audioUrl: string, scriptUrl: string }) => {
@@ -19,22 +18,10 @@ export const Main = ({ audioUrl, scriptUrl }: { audioUrl: string, scriptUrl: str
     const [audioCurrentTime, setAudioCurrentTime] = useAtom(audioCurrentTimeAtom);
 
     const [words, setWords] = useAtom(wordsAtom);
-    
+
     const [selectedArea, setSelectedArea] = useAtom(selectedAreaAtom);
 
     const [isRecording, setIsRecording] = useAtom(isRecordingAtom);
-    
-    /*
-    useHotkeys(' ', (event) => {
-        event.preventDefault();
-        setAudioPlaying((prev) => !prev);
-    });
-
-    useHotkeys('meta+r', (event) => {
-        setIsRecording((prev) => !prev);
-        event.preventDefault();
-    });
-*/
 
     useEffect(() => {
         if (!audio || audio.currentSrc != audioUrl) {
@@ -77,29 +64,37 @@ export const Main = ({ audioUrl, scriptUrl }: { audioUrl: string, scriptUrl: str
         };
     }, [audio, setAudioPlaying]);
 
-    /*
     useEffect(() => {
-        const onTimeupdate = () => {
-            setAudioCurrentTime(audio?.currentTime ?? 0);
+        const handleKeyDown = (event: { metaKey: any; key: string; preventDefault: () => void; }) => {
+            if (event.key === ' ') {
+                event.preventDefault();
+                console.log('Space Bar was pressed');
+                setAudioPlaying((prev) => !prev);
+            } else if (event.metaKey && event.key === 'r') {
+                event.preventDefault();
+                console.log('Command+R was pressed');
+                setIsRecording((prev) => !prev);
+            }
         };
 
-        audio?.addEventListener("timeupdate", onTimeupdate);
+        window.addEventListener('keydown', handleKeyDown);
+
         return () => {
-            audio?.removeEventListener("timeupdate", onTimeupdate);
+            window.removeEventListener('keydown', handleKeyDown);
         };
-    }, [audio, setAudioCurrentTime]);*/
+    }, []);
 
     useEffect(() => {
         let animationFrameId: number;
 
         const updateAudioTime = () => {
-            if(selectedArea && audio?.currentTime) {
-                if(audio.currentTime >= words[selectedArea.end].end / 1000000 - 0.1) {
+            if (selectedArea && audio?.currentTime) {
+                if (audio.currentTime >= words[selectedArea.end].end / 1000000 - 0.1) {
                     audio.pause();
                     setAudioPlaying(false);
                     audio.currentTime = words[selectedArea.start].start / 1000000
                 }
-                if(audio.currentTime <= words[selectedArea.start].start / 1000000 - 0.1) {
+                if (audio.currentTime <= words[selectedArea.start].start / 1000000 - 0.1) {
                     audio.pause();
                     setAudioPlaying(false);
                     audio.currentTime = words[selectedArea.start].start / 1000000
