@@ -9,6 +9,7 @@ import { autoRecordOptionAtom, isRecordingAtom, recordingsAtom } from "../atoms/
 import { Recording } from "../atoms/recording-atoms";
 import { audioPlayingAtom } from "../atoms/audio-atoms";
 import { selectedAreaAtom } from "../atoms/word-atoms";
+import { useHotkeys } from "react-hotkeys-hook";
 
 export const RecordButton = () => {
 
@@ -23,7 +24,7 @@ export const RecordButton = () => {
     const [option, setOption] = useAtom(autoRecordOptionAtom);
 
     const [selectedArea, setSelectedArea] = useAtom(selectedAreaAtom);
-
+    
     const getCurrentDate = () => {
         const now = new Date();
         const year = now.getFullYear();

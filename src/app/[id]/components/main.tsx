@@ -7,6 +7,8 @@ import { useAtom } from "jotai";
 import { audioAtom, audioCurrentTimeAtom, audioPlayingAtom } from "../atoms/audio-atoms";
 import { selectedAreaAtom, wordsAtom } from "../atoms/word-atoms";
 import { Content } from "./content";
+import { useHotkeys } from 'react-hotkeys-hook';
+import { isRecordingAtom } from "../atoms/recording-atoms";
 
 export const Main = ({ audioUrl, scriptUrl }: { audioUrl: string, scriptUrl: string }) => {
 
@@ -19,6 +21,18 @@ export const Main = ({ audioUrl, scriptUrl }: { audioUrl: string, scriptUrl: str
     const [words, setWords] = useAtom(wordsAtom);
     
     const [selectedArea, setSelectedArea] = useAtom(selectedAreaAtom);
+
+    const [isRecording, setIsRecording] = useAtom(isRecordingAtom);
+    
+    useHotkeys(' ', (event) => {
+        event.preventDefault();
+        setAudioPlaying((prev) => !prev);
+    });
+
+    useHotkeys('meta+r', (event) => {
+        setIsRecording((prev) => !prev);
+        event.preventDefault();
+    });
 
     useEffect(() => {
         if (!audio || audio.currentSrc != audioUrl) {
