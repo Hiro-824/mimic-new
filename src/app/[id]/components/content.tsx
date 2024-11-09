@@ -48,6 +48,32 @@ export const Content = () => {
     };
 
     useEffect(() => {
+        if (!audio) return;
+    
+        const interval = setInterval(() => {
+            const currentTime = audio.currentTime;
+    
+            // Find the word currently being played based on the current time
+            const currentIndex = words.findIndex(word => {
+                const start = word.start / 1000000 - 0.1;
+                const end = word.end / 1000000 - 0.1;
+                return currentTime >= start && currentTime <= end;
+            });
+    
+            if (currentIndex !== -1 && spanRefs.current[currentIndex]) {
+                // Scroll the currently played word into view
+                spanRefs.current[currentIndex].scrollIntoView({
+                    behavior: "smooth",
+                    block: "center",
+                    inline: "center"
+                });
+            }
+        }, 100); // Adjust interval as needed
+    
+        return () => clearInterval(interval);
+    }, [audio, words]);
+
+    useEffect(() => {
         if (selectedArea !== null && spanRefs.current) {
             const selection = window.getSelection();
             if (selection) {

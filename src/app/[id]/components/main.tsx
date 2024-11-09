@@ -68,11 +68,9 @@ export const Main = ({ audioUrl, scriptUrl }: { audioUrl: string, scriptUrl: str
         const handleKeyDown = (event: KeyboardEvent) => {
             if (event.key === ' ') {
                 event.preventDefault();
-                console.log('Space Bar was pressed');
                 setAudioPlaying((prev) => !prev);
             } else if (event.metaKey && event.key === 'r') {
                 event.preventDefault();
-                console.log('Command+R was pressed');
                 setIsRecording((prev) => !prev);
             }
         };
@@ -100,6 +98,7 @@ export const Main = ({ audioUrl, scriptUrl }: { audioUrl: string, scriptUrl: str
                     audio.currentTime = words[selectedArea.start].start / 1000000
                 }
             }
+
             setAudioCurrentTime(audio?.currentTime ?? 0);
             animationFrameId = requestAnimationFrame(updateAudioTime);
         };
