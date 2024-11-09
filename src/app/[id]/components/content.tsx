@@ -73,7 +73,7 @@ export const Content = () => {
     }, [selectedArea, spanRefs]);
 
     return (
-        <Box width={"100%"} onMouseUp={handleMouseUp}>
+        <Box width={"100%"} onMouseMove={handleMouseUp}>
             <Box maxW="1080px" mx="auto">
                 <Box width={"64%"} pt={"200px"} pb={"400px"} px={"16px"}>
                     <Text
