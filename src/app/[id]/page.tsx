@@ -1,11 +1,9 @@
 import { Box } from "@chakra-ui/react";
 import { Main } from "./components/main";
 
-type Props = Readonly<{
+export default async function Id({ params }: {
   params: { id: string };
-}>;
-
-export default function Id({ params }: Props) {
+}) {
 
   const { id } = params
 
