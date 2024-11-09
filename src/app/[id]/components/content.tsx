@@ -48,9 +48,11 @@ export const Content = () => {
     };
 
     useEffect(() => {
-        if (!audio || !audioPlaying) return;
+        if (!audio) return;
     
         const interval = setInterval(() => {
+            if(!audioPlaying) return;
+
             const currentTime = audio.currentTime;
     
             // Find the word currently being played based on the current time
@@ -71,7 +73,7 @@ export const Content = () => {
         }, 100); // Adjust interval as needed
     
         return () => clearInterval(interval);
-    }, [audio, words]);
+    }, [audio, words, audioPlaying]);
 
     useEffect(() => {
         if (selectedArea !== null && spanRefs.current) {
