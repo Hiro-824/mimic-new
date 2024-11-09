@@ -6,7 +6,6 @@ import { Overlay } from "./overlay";
 import { useAtom } from "jotai";
 import { audioAtom, audioCurrentTimeAtom, audioPlayingAtom } from "../atoms/audio-atoms";
 import { selectedAreaAtom, wordsAtom } from "../atoms/word-atoms";
-import { Box, Text } from "@chakra-ui/react";
 import { Content } from "./content";
 
 export const Main = ({ audioUrl, scriptUrl }: { audioUrl: string, scriptUrl: string }) => {
