@@ -7,7 +7,7 @@ import { useAtom } from "jotai";
 import { audioAtom, audioCurrentTimeAtom, audioPlayingAtom } from "../atoms/audio-atoms";
 import { selectedAreaAtom, wordsAtom } from "../atoms/word-atoms";
 import { Content } from "./content";
-import { isRecordingAtom } from "../atoms/recording-atoms";
+import { isRecordingAtom, micPermissionAtom } from "../atoms/recording-atoms";
 
 export const Main = ({ audioUrl, scriptUrl }: { audioUrl: string, scriptUrl: string }) => {
 
@@ -22,6 +22,21 @@ export const Main = ({ audioUrl, scriptUrl }: { audioUrl: string, scriptUrl: str
     const [selectedArea, setSelectedArea] = useAtom(selectedAreaAtom);
 
     const [isRecording, setIsRecording] = useAtom(isRecordingAtom);
+
+    const [micPermission, setMicPermission] = useAtom(micPermissionAtom)
+
+    useEffect(() => {
+        async function checkMicPermission() {
+            try {
+                await navigator.mediaDevices.getUserMedia({ audio: true });
+                setMicPermission(true);
+            } catch (error) {
+                setMicPermission(false);
+            }
+        }
+
+        checkMicPermission();
+    }, []);
 
     useEffect(() => {
         if (!audio || audio.currentSrc != audioUrl) {

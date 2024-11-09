@@ -9,6 +9,8 @@ export type Recording = {
     recDate: string;
 };
 
+export const micPermissionAtom = atom(false);
+
 export const isRecordingAtom = atom(false);
 
 export const recordingsAtom = atom<Recording[]>([]);
