@@ -1,5 +1,5 @@
 import { Box } from "@chakra-ui/react";
-import { Layout } from "./components/layout";
+import { Main } from "./components/main";
 
 export default function Id() {
 
@@ -9,7 +9,7 @@ export default function Id() {
   return (
     <>
       <Box zIndex={-1} bg={"#F0F8FF"} position={"fixed"} top={0} bottom={0} right={0} left={0} />
-      <Layout audioUrl={audioUrl} scriptUrl={scriptUrl} />
+      <Main audioUrl={audioUrl} scriptUrl={scriptUrl} />
     </>
   );
 }

@@ -9,7 +9,7 @@ import { selectedAreaAtom, wordsAtom } from "../atoms/word-atoms";
 import { Box, Text } from "@chakra-ui/react";
 import { Content } from "./content";
 
-export const Layout = ({ audioUrl, scriptUrl }: { audioUrl: string, scriptUrl: string }) => {
+export const Main = ({ audioUrl, scriptUrl }: { audioUrl: string, scriptUrl: string }) => {
 
     const [audio, setAudio] = useAtom(audioAtom)
 
