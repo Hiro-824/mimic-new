@@ -48,7 +48,7 @@ export const Content = () => {
     };
 
     useEffect(() => {
-        if (!audio) return;
+        if (!audio || !audioPlaying) return;
     
         const interval = setInterval(() => {
             const currentTime = audio.currentTime;
