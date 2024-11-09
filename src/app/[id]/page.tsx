@@ -1,11 +1,11 @@
 import { Box } from "@chakra-ui/react";
 import { Main } from "./components/main";
-import { useParams } from 'next/navigation';
+import { useRouter } from 'next/router'
 
 export default async function Id() {
 
-  const params = useParams()
-  const id = params.id?.toString();
+  const router = useRouter()
+  const id = router.query.id?.toString();
 
   const audioUrl = "https://ggqoevksoazxxcijctks.supabase.co/storage/v1/object/public/items/1b929165-e504-4af6-9fb0-8760f362f43e/b7f6b34e-3ad3-44bd-a0b8-f76f50afafeb/audio"
   const scriptUrl = "https://ggqoevksoazxxcijctks.supabase.co/storage/v1/object/public/items/1b929165-e504-4af6-9fb0-8760f362f43e/b7f6b34e-3ad3-44bd-a0b8-f76f50afafeb/b7f6b34e-3ad3-44bd-a0b8-f76f50afafeb.json"
