@@ -10,4 +10,4 @@ export const wordsAtom = atom<Word[]>([])
 
 export const hoveredWordIndexAtom = atom<number | null>();
 
-export const selectionAreaAtom = atom<null | {start: number, end : number}>(null);
+export const selectedAreaAtom = atom<null | {start: number, end : number}>(null);

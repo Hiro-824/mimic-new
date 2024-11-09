@@ -1,11 +1,13 @@
 "use client"
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Header } from "../../../components/header";
 import Content from "./content";
 import { Overlay } from "./overlay";
 import { useAtom } from "jotai";
 import { audioAtom, audioCurrentTimeAtom, audioPlayingAtom } from "../atoms/audio-atoms";
+import { selectedAreaAtom, wordsAtom } from "../atoms/word-atoms";
+import { Box, Text } from "@chakra-ui/react";
 
 export default function Layout({ audioUrl, scriptUrl }: { audioUrl: string, scriptUrl: string }) {
 
@@ -14,6 +16,10 @@ export default function Layout({ audioUrl, scriptUrl }: { audioUrl: string, scri
     const [audioPlaying, setAudioPlaying] = useAtom(audioPlayingAtom);
 
     const [audioCurrentTime, setAudioCurrentTime] = useAtom(audioCurrentTimeAtom);
+
+    const [words] = useAtom(wordsAtom);
+    
+    const [selectedArea, setSelectedArea] = useAtom(selectedAreaAtom);
 
     useEffect(() => {
         if (!audio || audio.currentSrc != audioUrl) {
@@ -62,6 +68,18 @@ export default function Layout({ audioUrl, scriptUrl }: { audioUrl: string, scri
         let animationFrameId: number;
 
         const updateAudioTime = () => {
+            if(selectedArea && audio?.currentTime) {
+                if(audio.currentTime >= words[selectedArea.end].end / 1000000 - 0.1) {
+                    audio.pause();
+                    setAudioPlaying(false);
+                    audio.currentTime = words[selectedArea.start].start / 1000000
+                }
+                if(audio.currentTime <= words[selectedArea.start].start / 1000000 - 0.1) {
+                    audio.pause();
+                    setAudioPlaying(false);
+                    audio.currentTime = words[selectedArea.start].start / 1000000
+                }
+            }
             setAudioCurrentTime(audio?.currentTime ?? 0);
             animationFrameId = requestAnimationFrame(updateAudioTime);
         };
@@ -73,13 +91,17 @@ export default function Layout({ audioUrl, scriptUrl }: { audioUrl: string, scri
 
         // Cleanup on unmount
         return () => cancelAnimationFrame(animationFrameId);
-    }, [audio]);
+    }, [audio, selectedArea]);
 
     return (
         <>
             <Header />
             <Overlay />
-            <Content />
+            <Content
+                onSelected={function (selection: { start: number; end: number; }): void {
+                    setSelectedArea(selection);
+                }}
+            />
         </>
     );
 }

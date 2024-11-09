@@ -8,11 +8,15 @@ import {
     AccordionItemTrigger,
     AccordionRoot,
 } from "@/components/ui/accordion"
+import { useAtom } from "jotai";
+import { wordsAtom } from "../atoms/word-atoms";
 
 export const RecordingItem = ({ index, recording }: { index: number, recording: Recording }) => {
 
     const [mimicPlaying, setMimicPlaying] = useState(false);
     const audioRef = useRef<HTMLAudioElement>(null);
+
+    const [words] = useAtom(wordsAtom);
 
     useEffect(() => {
         if (audioRef.current) {
@@ -41,11 +45,13 @@ export const RecordingItem = ({ index, recording }: { index: number, recording: 
         };
     }, [audioRef, setMimicPlaying]);
 
+    const text = (recording.start && recording.end) ? words.slice(recording.start, recording.end + 1).map(word => word.text).join(" ") : "...";
+
     return (
         <AccordionItem key={index} value={recording.id}>
             <AccordionItemTrigger>
                 <audio ref={audioRef} src={recording.audioURL}></audio>
-                <IconButton
+                <IconButton as={"a"}
                     variant={"ghost"} rounded="full" size={"xl"}
                     onClick={() => {
                         setMimicPlaying((prev) => !prev);
@@ -54,7 +60,7 @@ export const RecordingItem = ({ index, recording }: { index: number, recording: 
                     {mimicPlaying ? <FaPause /> : <FaPlay />}
                 </IconButton>
                 <Stack gap={1}>
-                    <Text>...</Text>
+                    <Text lineClamp="2">{text}</Text>
                     <Text fontSize="sm" color="fg.muted">
                         {recording.recDate}
                     </Text>

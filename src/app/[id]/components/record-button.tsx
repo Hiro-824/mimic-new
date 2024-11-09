@@ -5,8 +5,10 @@ import RecordRTC, { StereoAudioRecorder } from "recordrtc";
 import { useAtom } from "jotai";
 import { FaMicrophone, FaStop } from "react-icons/fa";
 import { useEffect, useRef, useState } from "react";
-import { isRecordingAtom, recordingsAtom } from "../atoms/recording-atoms";
+import { autoRecordOptionAtom, isRecordingAtom, recordingsAtom } from "../atoms/recording-atoms";
 import { Recording } from "../atoms/recording-atoms";
+import { audioPlayingAtom } from "../atoms/audio-atoms";
+import { selectedAreaAtom } from "../atoms/word-atoms";
 
 export const RecordButton = () => {
 
@@ -15,6 +17,12 @@ export const RecordButton = () => {
     const [isRecording, setIsRecording] = useAtom(isRecordingAtom);
 
     const [recordings, setRecordings] = useAtom(recordingsAtom);
+
+    const [audioPlaying, setAudioPlaying] = useAtom(audioPlayingAtom);
+
+    const [option, setOption] = useAtom(autoRecordOptionAtom);
+
+    const [selectedArea, setSelectedArea] = useAtom(selectedAreaAtom);
 
     const getCurrentDate = () => {
         const now = new Date();
@@ -57,6 +65,8 @@ export const RecordButton = () => {
                     audioURL: URL.createObjectURL(blob),
                     blob,
                     id,
+                    start: selectedArea ? selectedArea.start : null,
+                    end: selectedArea ? selectedArea.end : null,
                     recDate: getCurrentDate(),
                 };
 
@@ -80,6 +90,16 @@ export const RecordButton = () => {
             stopRecording();
         }
     }, [isRecording]);
+
+    useEffect(() => {
+        if (audioPlaying) {
+            if (option === "asStart") setIsRecording(true);
+            if (option === "asEnd") setIsRecording(false);
+        } else {
+            if (option === "asEnd") setIsRecording(true);
+            if (option === "asStart") setIsRecording(false);
+        }
+    }, [audioPlaying]);
 
     return (
         <Button
