@@ -65,7 +65,7 @@ export const Main = ({ audioUrl, scriptUrl }: { audioUrl: string, scriptUrl: str
     }, [audio, setAudioPlaying]);
 
     useEffect(() => {
-        const handleKeyDown = (event: { metaKey: any; key: string; preventDefault: () => void; }) => {
+        const handleKeyDown = (event: KeyboardEvent) => {
             if (event.key === ' ') {
                 event.preventDefault();
                 console.log('Space Bar was pressed');
