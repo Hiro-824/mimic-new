@@ -4,9 +4,9 @@ import { useEffect, useRef, useState } from "react";
 import { selectedAreaAtom, wordsAtom } from "../atoms/word-atoms";
 import { audioAtom, audioPlayingAtom } from "../atoms/audio-atoms";
 
-export const Content = ({ onSelected }: { onSelected: (selection: { start: number, end: number }) => void }) => {
+export const Content = () => {
 
-    const [words, setWords] = useAtom(wordsAtom);
+    const [words] = useAtom(wordsAtom);
 
     const [audio] = useAtom(audioAtom)
 
@@ -47,7 +47,6 @@ export const Content = ({ onSelected }: { onSelected: (selection: { start: numbe
         }
     };
 
-
     useEffect(() => {
         if (selectedArea !== null && spanRefs.current) {
             const selection = window.getSelection();
@@ -72,16 +71,6 @@ export const Content = ({ onSelected }: { onSelected: (selection: { start: numbe
             }
         }
     }, [selectedArea, spanRefs]);
-
-    useEffect(() => {
-        async function fetchData() {
-            const res = await fetch(
-                'https://ggqoevksoazxxcijctks.supabase.co/storage/v1/object/public/items/1b929165-e504-4af6-9fb0-8760f362f43e/b7f6b34e-3ad3-44bd-a0b8-f76f50afafeb/b7f6b34e-3ad3-44bd-a0b8-f76f50afafeb.json'
-            );
-            setWords(await res.json());
-        }
-        fetchData();
-    }, []);
 
     return (
         <Box width={"100%"} onMouseUp={handleMouseUp}>

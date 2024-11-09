@@ -1,5 +1,5 @@
-import Layout from "@/app/[id]/components/layout";
 import { Box } from "@chakra-ui/react";
+import { Layout } from "./components/layout";
 
 export default function Id() {
 

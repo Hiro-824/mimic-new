@@ -17,7 +17,7 @@ export const Layout = ({ audioUrl, scriptUrl }: { audioUrl: string, scriptUrl: s
 
     const [audioCurrentTime, setAudioCurrentTime] = useAtom(audioCurrentTimeAtom);
 
-    const [words] = useAtom(wordsAtom);
+    const [words, setWords] = useAtom(wordsAtom);
     
     const [selectedArea, setSelectedArea] = useAtom(selectedAreaAtom);
 
@@ -26,6 +26,16 @@ export const Layout = ({ audioUrl, scriptUrl }: { audioUrl: string, scriptUrl: s
             setAudio(new Audio(audioUrl))
         }
     })
+
+    useEffect(() => {
+        async function fetchData() {
+            const res = await fetch(
+                scriptUrl
+            );
+            setWords(await res.json());
+        }
+        fetchData();
+    }, []);
 
     useEffect(() => {
         if (audioPlaying) {
@@ -97,11 +107,7 @@ export const Layout = ({ audioUrl, scriptUrl }: { audioUrl: string, scriptUrl: s
         <>
             <Header />
             <Overlay />
-            <Content
-                onSelected={function (selection: { start: number; end: number; }): void {
-                    setSelectedArea(selection);
-                }}
-            />
+            <Content />
         </>
     );
 }
