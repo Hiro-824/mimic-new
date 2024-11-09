@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { selectedAreaAtom, wordsAtom } from "../atoms/word-atoms";
 import { audioAtom, audioPlayingAtom } from "../atoms/audio-atoms";
 
-export default function Content({ onSelected }: { onSelected: (selection: { start: number, end: number }) => void }) {
+export const Content = ({ onSelected }: { onSelected: (selection: { start: number, end: number }) => void }) => {
 
     const [words, setWords] = useAtom(wordsAtom);
 
