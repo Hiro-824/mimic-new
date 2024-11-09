@@ -108,7 +108,7 @@ export const Content = () => {
                                 <Span
                                     key={index}
                                     onClick={handleWordClick}
-                                    onMouseDown={isSelected ? handleMouseDown : () => { }}
+                                    onMouseDown={isSelected && (selectedArea.end  - selectedArea.start >= 20) ? handleMouseDown : () => {}}
                                     ref={(el: HTMLSpanElement) => spanRefs.current[index] = el}
                                 >
                                     <Span
