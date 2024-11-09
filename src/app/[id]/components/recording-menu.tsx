@@ -3,11 +3,11 @@ import { Radio, RadioGroup } from "@/components/ui/radio"
 import { FaMicrophone } from "react-icons/fa";
 import { RecordButton } from "./record-button";
 import { useAtom } from "jotai";
-import { autoRecordOption, autoRecordOptionAtom } from "../atoms/recording-atoms";
+import { autoRecordOption, autoRecordOptionAtomFamily } from "../atoms/recording-atoms";
 
-export const RecordingMenu = () => {
+export const RecordingMenu = ({ id }: { id: string }) => {
 
-    const [option, setOption] = useAtom(autoRecordOptionAtom);
+    const [option, setOption] = useAtom(autoRecordOptionAtomFamily(id));
 
     return (
         <Box p={4} borderRadius={"sm"} width={"100%"} backgroundColor={"white"}>
@@ -19,7 +19,7 @@ export const RecordingMenu = () => {
                         <Radio value="none">自動録音しない</Radio>
                     </Stack>
                 </RadioGroup>
-                <RecordButton />
+                <RecordButton id={id} />
             </Flex>
         </Box>
     )

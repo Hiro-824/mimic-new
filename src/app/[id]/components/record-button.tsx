@@ -5,24 +5,24 @@ import RecordRTC, { StereoAudioRecorder } from "recordrtc";
 import { useAtom } from "jotai";
 import { FaMicrophone, FaStop } from "react-icons/fa";
 import { useEffect, useRef, useState } from "react";
-import { autoRecordOptionAtom, isRecordingAtom, recordingsAtom } from "../atoms/recording-atoms";
+import { autoRecordOptionAtomFamily, isRecordingAtomFamily, recordingsAtomFamily } from "../atoms/recording-atoms";
 import { Recording } from "../atoms/recording-atoms";
-import { audioPlayingAtom } from "../atoms/audio-atoms";
-import { selectedAreaAtom } from "../atoms/word-atoms";
+import { audioPlayingAtomFamily } from "../atoms/audio-atoms";
+import { selectedAreaAtomFamily } from "../atoms/word-atoms";
 
-export const RecordButton = () => {
+export const RecordButton = ({ id }: { id: string }) => {
 
     const [recorder, setRecorder] = useState<RecordRTC | null>(null);
 
-    const [isRecording, setIsRecording] = useAtom(isRecordingAtom);
+    const [isRecording, setIsRecording] = useAtom(isRecordingAtomFamily(id));
 
-    const [recordings, setRecordings] = useAtom(recordingsAtom);
+    const [recordings, setRecordings] = useAtom(recordingsAtomFamily(id));
 
-    const [audioPlaying, setAudioPlaying] = useAtom(audioPlayingAtom);
+    const [audioPlaying, setAudioPlaying] = useAtom(audioPlayingAtomFamily(id));
 
-    const [option, setOption] = useAtom(autoRecordOptionAtom);
+    const [option, setOption] = useAtom(autoRecordOptionAtomFamily(id));
 
-    const [selectedArea, setSelectedArea] = useAtom(selectedAreaAtom);
+    const [selectedArea, setSelectedArea] = useAtom(selectedAreaAtomFamily(id));
     
     const getCurrentDate = () => {
         const now = new Date();

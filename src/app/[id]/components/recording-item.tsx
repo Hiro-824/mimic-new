@@ -8,23 +8,23 @@ import {
     AccordionItemTrigger,
 } from "@/components/ui/accordion"
 import { useAtom } from "jotai";
-import { selectedAreaAtom, wordsAtom } from "../atoms/word-atoms";
-import { audioPlayingAtom } from "../atoms/audio-atoms";
+import { selectedAreaAtomFamily, wordsAtomFamily } from "../atoms/word-atoms";
+import { audioPlayingAtomFamily } from "../atoms/audio-atoms";
 import { MimicPlayerSimultaneous } from "./mimic-player-simultaneous";
 import { MimicPlayerOriginalToMimic } from "./mimic-player-original-to-mimic";
 import { MimicPlayerMimicToOriginal } from "./mimic-player-mimic-to-original";
 
-export const RecordingItem = ({ index, recording }: { index: number, recording: Recording }) => {
+export const RecordingItem = ({ id, index, recording }: { id: string, index: number, recording: Recording }) => {
 
     const [mimicPlaying, setMimicPlaying] = useState(false);
 
-    const [audioPlaying, setAudioPlaying] = useAtom(audioPlayingAtom);
+    const [audioPlaying, setAudioPlaying] = useAtom(audioPlayingAtomFamily(id));
 
-    const [selectedArea, setSelectedArea] = useAtom(selectedAreaAtom);
+    const [selectedArea, setSelectedArea] = useAtom(selectedAreaAtomFamily(id));
 
     const audioRef = useRef<HTMLAudioElement>(null);
 
-    const [words] = useAtom(wordsAtom);
+    const [words] = useAtom(wordsAtomFamily(id));
 
     useEffect(() => {
         if (audioRef.current) {
@@ -83,9 +83,9 @@ export const RecordingItem = ({ index, recording }: { index: number, recording: 
                         </Button>
                     </Flex>
                     <Spacer />
-                    <MimicPlayerOriginalToMimic recording={recording} mimicPlaying={mimicPlaying} setMimicPlaying={setMimicPlaying}/>
-                    <MimicPlayerMimicToOriginal recording={recording} mimicPlaying={mimicPlaying} setMimicPlaying={setMimicPlaying}/>
-                    <MimicPlayerSimultaneous recording={recording} mimicPlaying={mimicPlaying} setMimicPlaying={setMimicPlaying}/>
+                    <MimicPlayerOriginalToMimic id={id} recording={recording} mimicPlaying={mimicPlaying} setMimicPlaying={setMimicPlaying}/>
+                    <MimicPlayerMimicToOriginal id={id} recording={recording} mimicPlaying={mimicPlaying} setMimicPlaying={setMimicPlaying}/>
+                    <MimicPlayerSimultaneous id={id} recording={recording} mimicPlaying={mimicPlaying} setMimicPlaying={setMimicPlaying}/>
                 </Stack>
             </AccordionItemContent>
         </AccordionItem>

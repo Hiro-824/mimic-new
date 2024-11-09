@@ -1,12 +1,12 @@
 import { Slider } from "@/components/ui/slider"
 import { useAtom } from "jotai";
-import { audioAtom, audioCurrentTimeAtom, audioPlayingAtom } from "../atoms/audio-atoms";
+import { audioAtomFamily, audioCurrentTimeAtomFamily, audioPlayingAtomFamily } from "../atoms/audio-atoms";
 
-export const PlaybackSlider = () => {
+export const PlaybackSlider = ({ id }: { id: string }) => {
 
-    const [audio] = useAtom(audioAtom)
+    const [audio] = useAtom(audioAtomFamily(id))
 
-    const [audioCurrentTime] = useAtom(audioCurrentTimeAtom);
+    const [audioCurrentTime] = useAtom(audioCurrentTimeAtomFamily(id));
 
     const audioJump = (targetSecond: number) => {
         if (!isNaN(targetSecond) && isFinite(targetSecond) && audio) {

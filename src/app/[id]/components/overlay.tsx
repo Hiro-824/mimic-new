@@ -2,7 +2,7 @@ import { Box, Flex } from "@chakra-ui/react";
 import { OverlayMain } from "./overlay-main";
 import { OverlaySide } from "./overlay-side";
 
-export const Overlay = () => {
+export const Overlay = ({ id }: { id: string }) => {
     return (
         <Box
             position="fixed"
@@ -13,8 +13,8 @@ export const Overlay = () => {
             pointerEvents={"none"}
         >
             <Flex alignItems="center" maxW="1080px" mx="auto" height="100vh">
-                <OverlayMain />
-                <OverlaySide />
+                <OverlayMain id={id} />
+                <OverlaySide id={id} />
             </Flex>
         </Box>
     )

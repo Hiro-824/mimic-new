@@ -4,26 +4,26 @@ import { useEffect, useState } from "react";
 import { Header } from "../../../components/header";
 import { Overlay } from "./overlay";
 import { useAtom } from "jotai";
-import { audioAtom, audioCurrentTimeAtom, audioPlayingAtom } from "../atoms/audio-atoms";
-import { selectedAreaAtom, wordsAtom } from "../atoms/word-atoms";
+import { audioAtomFamily, audioCurrentTimeAtomFamily, audioPlayingAtomFamily } from "../atoms/audio-atoms";
+import { selectedAreaAtomFamily, wordsAtomFamily } from "../atoms/word-atoms";
 import { Content } from "./content";
-import { isRecordingAtom, micPermissionAtom } from "../atoms/recording-atoms";
+import { isRecordingAtomFamily, micPermissionAtomFamily } from "../atoms/recording-atoms";
 
-export const Main = ({ audioUrl, scriptUrl }: { audioUrl: string, scriptUrl: string }) => {
+export const Main = ({ audioUrl, scriptUrl, id }: { audioUrl: string, scriptUrl: string, id: string }) => {
 
-    const [audio, setAudio] = useAtom(audioAtom)
+    const [audio, setAudio] = useAtom(audioAtomFamily(id))
 
-    const [audioPlaying, setAudioPlaying] = useAtom(audioPlayingAtom);
+    const [audioPlaying, setAudioPlaying] = useAtom(audioPlayingAtomFamily(id));
 
-    const [audioCurrentTime, setAudioCurrentTime] = useAtom(audioCurrentTimeAtom);
+    const [audioCurrentTime, setAudioCurrentTime] = useAtom(audioCurrentTimeAtomFamily(id));
 
-    const [words, setWords] = useAtom(wordsAtom);
+    const [words, setWords] = useAtom(wordsAtomFamily(id));
 
-    const [selectedArea, setSelectedArea] = useAtom(selectedAreaAtom);
+    const [selectedArea, setSelectedArea] = useAtom(selectedAreaAtomFamily(id));
 
-    const [isRecording, setIsRecording] = useAtom(isRecordingAtom);
+    const [isRecording, setIsRecording] = useAtom(isRecordingAtomFamily(id));
 
-    const [micPermission, setMicPermission] = useAtom(micPermissionAtom)
+    const [micPermission, setMicPermission] = useAtom(micPermissionAtomFamily(id))
 
     useEffect(() => {
         async function checkMicPermission() {
@@ -130,8 +130,8 @@ export const Main = ({ audioUrl, scriptUrl }: { audioUrl: string, scriptUrl: str
     return (
         <>
             <Header />
-            <Overlay />
-            <Content />
+            <Overlay id={id} />
+            <Content id={id} />
         </>
     );
 }

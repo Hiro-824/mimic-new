@@ -1,11 +1,11 @@
 import { IconButton } from "@chakra-ui/react";
 import { FaPause, FaPlay } from "react-icons/fa";
 import { useAtom } from "jotai";
-import { audioPlayingAtom } from "../atoms/audio-atoms";
+import { audioPlayingAtomFamily } from "../atoms/audio-atoms";
 
-export const PlayButton = () => {
+export const PlayButton = ({id}: {id: string}) => {
 
-    const [audioPlaying, setAudioPlaying] = useAtom(audioPlayingAtom);
+    const [audioPlaying, setAudioPlaying] = useAtom(audioPlayingAtomFamily(id));
 
     return (
         <IconButton

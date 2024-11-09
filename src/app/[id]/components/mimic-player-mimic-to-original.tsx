@@ -3,14 +3,14 @@ import { Recording } from "../atoms/recording-atoms";
 import { FaPlay } from "react-icons/fa";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useAtom } from "jotai";
-import { audioPlayingAtom } from "../atoms/audio-atoms";
-import { selectedAreaAtom } from "../atoms/word-atoms";
+import { audioPlayingAtomFamily } from "../atoms/audio-atoms";
+import { selectedAreaAtomFamily } from "../atoms/word-atoms";
 
-export const MimicPlayerMimicToOriginal = ({ recording, mimicPlaying, setMimicPlaying }: { recording: Recording, mimicPlaying: boolean, setMimicPlaying: Dispatch<SetStateAction<boolean>> }) => {
+export const MimicPlayerMimicToOriginal = ({ id, recording, mimicPlaying, setMimicPlaying }: { id: string, recording: Recording, mimicPlaying: boolean, setMimicPlaying: Dispatch<SetStateAction<boolean>> }) => {
 
-    const [audioPlaying, setAudioPlaying] = useAtom(audioPlayingAtom);
+    const [audioPlaying, setAudioPlaying] = useAtom(audioPlayingAtomFamily(id));
 
-    const [selectedArea, setSelectedArea] = useAtom(selectedAreaAtom);
+    const [selectedArea, setSelectedArea] = useAtom(selectedAreaAtomFamily(id));
 
     const [shouldToggleAudio, setShouldToggleAudio] = useState(false);
 

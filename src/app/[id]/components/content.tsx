@@ -1,18 +1,18 @@
 import { Box, Text, Span, } from "@chakra-ui/react";
 import { useAtom } from "jotai";
 import { useEffect, useRef, useState } from "react";
-import { selectedAreaAtom, wordsAtom } from "../atoms/word-atoms";
-import { audioAtom, audioPlayingAtom } from "../atoms/audio-atoms";
+import { selectedAreaAtomFamily, wordsAtomFamily } from "../atoms/word-atoms";
+import { audioAtomFamily, audioPlayingAtomFamily } from "../atoms/audio-atoms";
 
-export const Content = () => {
+export const Content = ({ id }: {id: string}) => {
 
-    const [words, setWords] = useAtom(wordsAtom);
+    const [words, setWords] = useAtom(wordsAtomFamily(id));
 
-    const [audio] = useAtom(audioAtom)
+    const [audio] = useAtom(audioAtomFamily(id))
 
-    const [audioPlaying, setAudioPlaying] = useAtom(audioPlayingAtom)
+    const [audioPlaying, setAudioPlaying] = useAtom(audioPlayingAtomFamily(id))
 
-    const [selectedArea, setSelectedArea] = useAtom(selectedAreaAtom)
+    const [selectedArea, setSelectedArea] = useAtom(selectedAreaAtomFamily(id))
 
     const spanRefs = useRef<HTMLSpanElement[]>([]);
 
