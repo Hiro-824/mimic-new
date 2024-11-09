@@ -26,6 +26,9 @@ export const Content = ({ id }: {id: string}) => {
             let startIndex: number | null = null;
             let endIndex: number | null = null;
 
+            let selectionOffset = 0;
+            if(selectedText[0] === " ") selectionOffset = 1;
+
             spanRefs.current.forEach((spanRef, index) => {
                 if (spanRef && selection.containsNode(spanRef, true)) {
                     if (startIndex === null) startIndex = index; // First selected span
@@ -34,9 +37,9 @@ export const Content = ({ id }: {id: string}) => {
             });
 
             if (startIndex !== null && endIndex !== null) {
-                setSelectedArea({ start: startIndex, end: endIndex });
+                setSelectedArea({ start: startIndex + selectionOffset, end: endIndex });
                 if (audio) {
-                    audio.currentTime = words[startIndex].start / 1000000;
+                    audio.currentTime = words[startIndex + selectionOffset].start / 1000000;
                     setAudioPlaying(true);
                 }
             } else {
@@ -80,14 +83,17 @@ export const Content = ({ id }: {id: string}) => {
             const selection = window.getSelection();
             if (selection) {
                 selection.removeAllRanges();
-
                 const range = document.createRange();
+
                 const startSpan = spanRefs.current[selectedArea.start];
                 const endSpan = spanRefs.current[selectedArea.end];
 
                 if (startSpan && endSpan) {
                     range.setStartBefore(startSpan);
                     range.setEndAfter(endSpan);
+                    if (range.endOffset > 0) {
+                        range.setEnd(range.endContainer, range.endOffset - 1);
+                    }
                     selection.addRange(range);
                 }
             }
