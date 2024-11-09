@@ -92,16 +92,6 @@ export const RecordButton = ({ id }: { id: string }) => {
         }
     }, [isRecording]);
 
-    useEffect(() => {
-        if (audioPlaying) {
-            if (option === "asStart") setIsRecording(true);
-            if (option === "asEnd") setIsRecording(false);
-        } else {
-            if (option === "asEnd") setIsRecording(true);
-            if (option === "asStart") setIsRecording(false);
-        }
-    }, [audioPlaying]);
-
     return (
         <Button
             backgroundColor="blue.100"

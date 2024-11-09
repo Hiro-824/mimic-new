@@ -7,7 +7,7 @@ import { useAtom } from "jotai";
 import { audioAtomFamily, audioCurrentTimeAtomFamily, audioPlayingAtomFamily } from "../atoms/audio-atoms";
 import { selectedAreaAtomFamily, wordsAtomFamily } from "../atoms/word-atoms";
 import { Content } from "./content";
-import { isRecordingAtomFamily, micPermissionAtomFamily } from "../atoms/recording-atoms";
+import { autoRecordOptionAtomFamily, isRecordingAtomFamily, micPermissionAtomFamily } from "../atoms/recording-atoms";
 
 export const Main = ({ audioUrl, scriptUrl, id }: { audioUrl: string, scriptUrl: string, id: string }) => {
 
@@ -24,6 +24,9 @@ export const Main = ({ audioUrl, scriptUrl, id }: { audioUrl: string, scriptUrl:
     const [isRecording, setIsRecording] = useAtom(isRecordingAtomFamily(id));
 
     const [micPermission, setMicPermission] = useAtom(micPermissionAtomFamily(id))
+
+    const [option, setOption] = useAtom(autoRecordOptionAtomFamily(id));
+
 
     useEffect(() => {
         async function checkMicPermission() {
@@ -56,10 +59,14 @@ export const Main = ({ audioUrl, scriptUrl, id }: { audioUrl: string, scriptUrl:
 
     useEffect(() => {
         if (audioPlaying) {
+            if (option === "asStart") setIsRecording(true);
+            if (option === "asEnd") setIsRecording(false);
             audio?.play().catch(() => {
                 throw new Error("音声ファイルが見つかりません");
             });
         } else {
+            if (option === "asEnd") setIsRecording(true);
+            if (option === "asStart") setIsRecording(false);
             audio?.pause();
         }
         return () => {
