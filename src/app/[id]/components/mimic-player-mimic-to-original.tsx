@@ -28,11 +28,15 @@ export const MimicPlayerMimicToOriginal = ({ recording, mimicPlaying, setMimicPl
                 onClick={() => {
                     if (recording.start && recording.end) {
                         setSelectedArea({ start: recording.start, end: recording.end });
+                    }
+                    if (selectedArea) {
                         setTimeout(() => {
                             setAudioPlaying(false);
                             setMimicPlaying(true);
                             setShouldToggleAudio(true); // Set flag to toggle mimicPlaying after audioPlaying becomes false
                         }, 0);
+                    } else {
+                        setMimicPlaying(true);
                     }
                 }}
             >

@@ -56,6 +56,7 @@ export const RecordButton = () => {
             recorder.stopRecording(() => {
                 const blob = recorder.getBlob();
                 setIsRecording(false);
+                setOption("none");
 
                 const id =
                     Math.random().toString(32).substring(2) +

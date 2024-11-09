@@ -19,10 +19,14 @@ export const MimicPlayerSimultaneous = ({ recording, mimicPlaying, setMimicPlayi
                 onClick={() => {
                     if (recording.start && recording.end) {
                         setSelectedArea({ start: recording.start, end: recording.end });
+                    }
+                    if(selectedArea) {
                         setTimeout(() => {
                             setAudioPlaying(true);
                             setMimicPlaying(true);
                         }, 0);
+                    } else {
+                        setMimicPlaying(true);
                     }
                 }}
             >
