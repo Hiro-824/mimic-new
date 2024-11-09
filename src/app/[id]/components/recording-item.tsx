@@ -1,4 +1,4 @@
-import { Box, IconButton, Flex, Stack, Text } from "@chakra-ui/react";
+import { Box, IconButton, Flex, Stack, Text, Button, Spacer } from "@chakra-ui/react";
 import { Key, useEffect, useRef, useState } from "react";
 import { Recording } from "../atoms/recording-atoms";
 import { FaPause, FaPlay } from "react-icons/fa";
@@ -6,14 +6,22 @@ import {
     AccordionItem,
     AccordionItemContent,
     AccordionItemTrigger,
-    AccordionRoot,
 } from "@/components/ui/accordion"
 import { useAtom } from "jotai";
-import { wordsAtom } from "../atoms/word-atoms";
+import { selectedAreaAtom, wordsAtom } from "../atoms/word-atoms";
+import { audioPlayingAtom } from "../atoms/audio-atoms";
+import { MimicPlayerSimultaneous } from "./mimic-player-simultaneous";
+import { MimicPlayerOriginalToMimic } from "./mimic-player-original-to-mimic";
+import { MimicPlayerMimicToOriginal } from "./mimic-player-mimic-to-original";
 
 export const RecordingItem = ({ index, recording }: { index: number, recording: Recording }) => {
 
     const [mimicPlaying, setMimicPlaying] = useState(false);
+
+    const [audioPlaying, setAudioPlaying] = useAtom(audioPlayingAtom);
+
+    const [selectedArea, setSelectedArea] = useAtom(selectedAreaAtom);
+
     const audioRef = useRef<HTMLAudioElement>(null);
 
     const [words] = useAtom(wordsAtom);
@@ -45,7 +53,7 @@ export const RecordingItem = ({ index, recording }: { index: number, recording: 
         };
     }, [audioRef, setMimicPlaying]);
 
-    const text = (recording.start && recording.end) ? words.slice(recording.start, recording.end + 1).map(word => word.text).join(" ") : "...";
+    const text = (recording.start && recording.end) ? words.slice(recording.start, recording.end + 1).map(word => word.text).join(" ") : null;
 
     return (
         <AccordionItem key={index} value={recording.id}>
@@ -60,7 +68,7 @@ export const RecordingItem = ({ index, recording }: { index: number, recording: 
                     {mimicPlaying ? <FaPause /> : <FaPlay />}
                 </IconButton>
                 <Stack gap={1}>
-                    <Text lineClamp="2">{text}</Text>
+                    <Text lineClamp="2">{text ?? "..."}</Text>
                     <Text fontSize="sm" color="fg.muted">
                         {recording.recDate}
                     </Text>
@@ -68,45 +76,16 @@ export const RecordingItem = ({ index, recording }: { index: number, recording: 
             </AccordionItemTrigger>
             <AccordionItemContent>
                 <Stack gap={4}>
-                    <Flex alignItems={"center"} gap={4}>
-                        <IconButton
-                            variant={"ghost"} rounded="full" size={"sm"}
-                            onClick={() => {
-                                setMimicPlaying((prev) => !prev);
-                            }}
-                        >
-                            <FaPlay />
-                        </IconButton>
-                        <Text>
-                            オリジナル → 録音の順に再生
-                        </Text>
+                    <Flex justifyContent={"space-between"} alignItems={"center"} gap={4}>
+                        <Text lineClamp="2">{text}</Text>
+                        <Button variant={"subtle"}>
+                            選択部分を指定
+                        </Button>
                     </Flex>
-                    <Flex alignItems={"center"} gap={4}>
-                        <IconButton
-                            variant={"ghost"} rounded="full" size={"sm"}
-                            onClick={() => {
-                                setMimicPlaying((prev) => !prev);
-                            }}
-                        >
-                            <FaPlay />
-                        </IconButton>
-                        <Text>
-                            録音 → オリジナルの順に再生
-                        </Text>
-                    </Flex>
-                    <Flex alignItems={"center"} gap={4}>
-                        <IconButton
-                            variant={"ghost"} rounded="full" size={"sm"}
-                            onClick={() => {
-                                setMimicPlaying((prev) => !prev);
-                            }}
-                        >
-                            <FaPlay />
-                        </IconButton>
-                        <Text>
-                            重ねて再生
-                        </Text>
-                    </Flex>
+                    <Spacer />
+                    <MimicPlayerOriginalToMimic recording={recording} mimicPlaying={mimicPlaying} setMimicPlaying={setMimicPlaying}/>
+                    <MimicPlayerMimicToOriginal recording={recording} mimicPlaying={mimicPlaying} setMimicPlaying={setMimicPlaying}/>
+                    <MimicPlayerSimultaneous recording={recording} mimicPlaying={mimicPlaying} setMimicPlaying={setMimicPlaying}/>
                 </Stack>
             </AccordionItemContent>
         </AccordionItem>

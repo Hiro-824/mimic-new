@@ -60,7 +60,6 @@ export const Content = () => {
                 if (startSpan && endSpan) {
                     range.setStartBefore(startSpan);
                     range.setEndAfter(endSpan);
-
                     selection.addRange(range);
                 }
             }
