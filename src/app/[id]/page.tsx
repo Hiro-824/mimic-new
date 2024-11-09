@@ -1,3 +1,5 @@
+"use client"
+
 import { Box } from "@chakra-ui/react";
 import { Main } from "./components/main";
 import { useParams } from 'next/navigation'
