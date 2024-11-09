@@ -135,7 +135,7 @@ export const Content = ({ id }: {id: string}) => {
                                 <Span
                                     key={index}
                                     onClick={handleWordClick}
-                                    onMouseDown={isSelected && (selectedArea.end  - selectedArea.start >= 20) ? handleMouseDown : () => {}}
+                                    onMouseDown={isSelected && (selectedArea.end  - selectedArea.start >= 100) ? handleMouseDown : () => {}}
                                     ref={(el: HTMLSpanElement) => spanRefs.current[index] = el}
                                 >
                                     <Span
@@ -151,7 +151,7 @@ export const Content = ({ id }: {id: string}) => {
                                         pt={"4.5px"}
                                         pb={"5.5px"}
                                         backgroundColor={isSelected && !isLastSelected ? "blue.100" : "transparent"}
-                                        _selection={isLastSelected ? { backgroundColor: "transparent" } : { backgroundColor: "blue.100" }}
+                                        _selection={{ backgroundColor: "blue.100" }}
                                     >
                                         {" "}
                                     </Span>
