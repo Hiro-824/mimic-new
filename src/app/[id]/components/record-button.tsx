@@ -3,9 +3,9 @@
 import { Button, Icon } from "@chakra-ui/react";
 import RecordRTC, { StereoAudioRecorder } from "recordrtc";
 import { useAtom } from "jotai";
-import { FaMicrophone, FaStop } from "react-icons/fa";
+import { FaMicrophone, FaMicrophoneSlash, FaStop } from "react-icons/fa";
 import { useEffect, useRef, useState } from "react";
-import { autoRecordOptionAtomFamily, isRecordingAtomFamily, recordingsAtomFamily } from "../atoms/recording-atoms";
+import { autoRecordOptionAtomFamily, isRecordingAtomFamily, micPermissionAtomFamily, recordingsAtomFamily } from "../atoms/recording-atoms";
 import { Recording } from "../atoms/recording-atoms";
 import { audioPlayingAtomFamily } from "../atoms/audio-atoms";
 import { selectedAreaAtomFamily } from "../atoms/word-atoms";
@@ -23,6 +23,8 @@ export const RecordButton = ({ id }: { id: string }) => {
     const [option, setOption] = useAtom(autoRecordOptionAtomFamily(id));
 
     const [selectedArea, setSelectedArea] = useAtom(selectedAreaAtomFamily(id));
+
+    const [micPermission] = useAtom(micPermissionAtomFamily(id));
     
     const getCurrentDate = () => {
         const now = new Date();
@@ -36,6 +38,7 @@ export const RecordButton = ({ id }: { id: string }) => {
     };
 
     const startRecording = async () => {
+        if(!micPermission) return;
         try {
             const stream = await navigator.mediaDevices.getUserMedia({
                 audio: true,
@@ -106,9 +109,10 @@ export const RecordButton = ({ id }: { id: string }) => {
             onClick={() => {
                 setIsRecording((prev) => !prev);
             }}
+            disabled = {!micPermission}
         >
             <Icon size={"sm"}>
-                {isRecording ? <FaStop /> : <FaMicrophone />}
+                {micPermission ? isRecording ? <FaStop /> : <FaMicrophone /> : <FaMicrophoneSlash />}
             </Icon>
         </Button>
     )
