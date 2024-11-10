@@ -14,7 +14,7 @@ export const RecordingList = ({ id }: { id: string }) => {
     const [recordings, setRecordings] = useAtom(recordingsAtomFamily(id));
 
     return (
-        <Box p={4} borderRadius={"sm"} maxH={"calc(100vh - 435px)"} overflow={"auto"} width={"100%"} backgroundColor={"white"}>
+        <Box p={4} borderRadius={"sm"} maxH={"calc(100vh - 375px)"} overflow={"auto"} width={"100%"} backgroundColor={"white"}>
             {recordings.length > 0 ? (
                 <Stack gap="4">
                     <AccordionRoot variant={"subtle"}>

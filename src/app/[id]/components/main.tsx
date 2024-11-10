@@ -27,7 +27,6 @@ export const Main = ({ audioUrl, scriptUrl, id }: { audioUrl: string, scriptUrl:
 
     const [option, setOption] = useAtom(autoRecordOptionAtomFamily(id));
 
-
     useEffect(() => {
         async function checkMicPermission() {
             try {

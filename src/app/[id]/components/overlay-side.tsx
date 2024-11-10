@@ -8,7 +8,7 @@ export const OverlaySide = ({ id }: { id: string }) => {
         <Box pointerEvents={"all"} pt={8} pb={24} px={4} flex={1} height={"100%"}>
             <Flex direction={"column"} gap={4}>
                 <RecordingMenu id={id} />
-                <RecordingSearchBar />
+                {<RecordingSearchBar />}
                 <RecordingList id={id} />
             </Flex>
         </Box>
