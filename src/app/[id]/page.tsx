@@ -5,10 +5,10 @@ export default async function Id({ params, }: {params: Promise<{ id: string }>})
 
   const id = (await params).id;
 
-  //const audioUrl = "https://ggqoevksoazxxcijctks.supabase.co/storage/v1/object/public/items/1b929165-e504-4af6-9fb0-8760f362f43e/b7f6b34e-3ad3-44bd-a0b8-f76f50afafeb/audio"
+  const audioUrl = "https://ggqoevksoazxxcijctks.supabase.co/storage/v1/object/public/items/1b929165-e504-4af6-9fb0-8760f362f43e/b7f6b34e-3ad3-44bd-a0b8-f76f50afafeb/audio"
   const scriptUrl = "https://ggqoevksoazxxcijctks.supabase.co/storage/v1/object/public/items/1b929165-e504-4af6-9fb0-8760f362f43e/b7f6b34e-3ad3-44bd-a0b8-f76f50afafeb/b7f6b34e-3ad3-44bd-a0b8-f76f50afafeb.json"
 
-  const audioUrl = `https://gccpvkvlopkohnmgdrgy.supabase.co/storage/v1/object/public/audio/public/${id}.wav`;
+  //const audioUrl = `https://gccpvkvlopkohnmgdrgy.supabase.co/storage/v1/object/public/audio/public/${id}.wav`;
 
   return (
     <>
