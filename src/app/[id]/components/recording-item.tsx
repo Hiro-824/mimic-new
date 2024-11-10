@@ -53,7 +53,7 @@ export const RecordingItem = ({ id, index, recording }: { id: string, index: num
         };
     }, [audioRef, setMimicPlaying]);
 
-    const text = (recording.start && recording.end) ? words.slice(recording.start, recording.end + 1).map(word => word.text).join(" ") : null;
+    const text = (recording.start !== null && recording.end !== null) ? words.slice(recording.start, recording.end + 1).map(word => word.text).join(" ") : null;
 
     return (
         <AccordionItem key={index} value={recording.id}>
