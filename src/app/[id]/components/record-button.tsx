@@ -1,7 +1,6 @@
 "use client"
 
-import { Button, Icon } from "@chakra-ui/react";
-import RecordRTC, { StereoAudioRecorder } from "recordrtc";
+import RecordRTC from "recordrtc";
 import { useAtom } from "jotai";
 import { FaMicrophone, FaMicrophoneSlash, FaStop } from "react-icons/fa";
 import { useEffect, useRef, useState } from "react";
@@ -9,6 +8,7 @@ import { autoRecordOptionAtomFamily, isRecordingAtomFamily, micPermissionAtomFam
 import { Recording } from "../atoms/recording-atoms";
 import { audioPlayingAtomFamily } from "../atoms/audio-atoms";
 import { selectedAreaAtomFamily } from "../atoms/word-atoms";
+import { Button, Icon } from "@chakra-ui/react";
 
 export const RecordButton = ({ id }: { id: string }) => {
 
@@ -25,7 +25,7 @@ export const RecordButton = ({ id }: { id: string }) => {
     const [selectedArea, setSelectedArea] = useAtom(selectedAreaAtomFamily(id));
 
     const [micPermission] = useAtom(micPermissionAtomFamily(id));
-    
+
     const getCurrentDate = () => {
         const now = new Date();
         const year = now.getFullYear();
@@ -38,12 +38,13 @@ export const RecordButton = ({ id }: { id: string }) => {
     };
 
     const startRecording = async () => {
-        if(!micPermission) return;
+        if (!micPermission) return;
         try {
             const stream = await navigator.mediaDevices.getUserMedia({
                 audio: true,
                 video: false,
             });
+            const { default: RecordRTC } = await import("recordrtc"); // Dynamically import RecordRTC
             const newRecorder = new RecordRTC(stream, { type: "audio" });
             newRecorder.startRecording();
             setRecorder(newRecorder);
@@ -109,7 +110,7 @@ export const RecordButton = ({ id }: { id: string }) => {
             onClick={() => {
                 setIsRecording((prev) => !prev);
             }}
-            disabled = {!micPermission}
+            disabled={!micPermission}
         >
             <Icon size={"sm"}>
                 {micPermission ? isRecording ? <FaStop /> : <FaMicrophone /> : <FaMicrophoneSlash />}
