@@ -1,4 +1,5 @@
-import { Box, Flex, Button, Link, Image, Spacer } from "@chakra-ui/react"
+import { Box, Flex, Link, Image, Spacer } from "@chakra-ui/react"
+import { LogoutButton } from "./logout-button"
 
 export const Header = () => {
     return (
@@ -24,18 +25,7 @@ export const Header = () => {
                     />
                 </Link>
                 <Spacer/>
-                <Button
-                    backgroundColor="blue.100"
-                    color="black"
-                    borderRadius="full"
-                    _hover={{ backgroundColor: 'blue.200' }}
-                    _active={{ backgroundColor: 'blue.300' }}
-                    fontWeight="bold"
-                    h={"32px"}
-                    px={6}
-                >
-                    Log out
-                </Button>
+                <LogoutButton/>
             </Flex>
         </Box>
     )

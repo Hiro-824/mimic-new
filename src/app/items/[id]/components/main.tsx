@@ -1,13 +1,13 @@
 "use client"
 
 import { useEffect, useState } from "react";
-import { Header } from "../../../components/header";
 import { Overlay } from "./overlay";
 import { useAtom } from "jotai";
 import { audioAtomFamily, audioCurrentTimeAtomFamily, audioPlayingAtomFamily } from "../atoms/audio-atoms";
 import { selectedAreaAtomFamily, wordsAtomFamily } from "../atoms/word-atoms";
 import { Content } from "./content";
 import { autoRecordOptionAtomFamily, isRecordingAtomFamily, micPermissionAtomFamily } from "../atoms/recording-atoms";
+import { Header } from "@/components/header";
 
 export const Main = ({ audioUrl, scriptUrl, id }: { audioUrl: string, scriptUrl: string, id: string }) => {
 
