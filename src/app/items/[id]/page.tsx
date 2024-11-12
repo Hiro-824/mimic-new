@@ -12,15 +12,13 @@ export default async function Id({ params, }: { params: Promise<{ id: string }> 
 
   const { data } = await supabase.auth.getUser();
 
-  const uid = (data.user) ? data.user.id : null;
-
   if (!item || error) {
     redirect('/items');
   }
 
   return (
     <>
-      <Item id={id} item={item} uid={uid} />
+      <Item id={id} item={item} user={data.user} />
     </>
   );
 }

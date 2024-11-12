@@ -8,6 +8,7 @@ import { selectedAreaAtomFamily, wordsAtomFamily } from "../atoms/word-atoms";
 import { Content } from "./content";
 import { autoRecordOptionAtomFamily, isRecordingAtomFamily, micPermissionAtomFamily } from "../atoms/recording-atoms";
 import { Header } from "@/components/header";
+import { User } from "@supabase/supabase-js";
 
 export const Main = ({ id }: { id: string }) => {
 
@@ -119,7 +120,6 @@ export const Main = ({ id }: { id: string }) => {
 
     return (
         <>
-            <Header />
             <Overlay id={id} />
             <Content id={id} />
         </>

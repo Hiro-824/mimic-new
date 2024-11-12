@@ -1,12 +1,13 @@
 "use client"
 
-import { Box } from "@chakra-ui/react";
 import { Main } from "./components/main";
 import { useEffect } from "react";
 import { useAtom } from "jotai";
 import { audioAtomFamily } from "./atoms/audio-atoms";
 import { wordsAtomFamily } from "./atoms/word-atoms";
 import { createClient } from '@/utils/supabase/client'
+import { BasicLayout } from "@/components/basic-layout";
+import { User } from "@supabase/supabase-js";
 
 interface ItemType {
     user_id: string | null;
@@ -14,7 +15,9 @@ interface ItemType {
     text_name: string;
 }
 
-export const Item = ({ uid, id, item }: { uid: string | null, id: string, item: ItemType, }) => {
+export const Item = ({ user, id, item }: { user: User | null, id: string, item: ItemType, }) => {
+
+    const uid = user?.id ?? "";
 
     const isPublic = (item["user_id"] == null);
 
@@ -61,10 +64,16 @@ export const Item = ({ uid, id, item }: { uid: string | null, id: string, item: 
 
     });
 
-    return (
+    /*return (
         <>
             <Box zIndex={-1} bg={"#F0F8FF"} position={"fixed"} top={0} bottom={0} right={0} left={0} />
             <Main id={id} />
         </>
-    );
+    );*/
+
+    return (
+        <BasicLayout user={user}>
+            <Main id={id} />
+        </BasicLayout>
+    )
 }
