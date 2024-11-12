@@ -1,5 +1,3 @@
-import { Box } from "@chakra-ui/react";
-import { Main } from "./components/main";
 import { createClient } from '@/utils/supabase/server';
 import { redirect } from "next/navigation";
 import { Item } from "./item";
@@ -18,7 +16,7 @@ export default async function Id({ params, }: { params: Promise<{ id: string }> 
 
   return (
     <>
-      <Item id={id} />
+      <Item id={id} item={item} />
     </>
   );
 }
