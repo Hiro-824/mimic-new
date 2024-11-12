@@ -10,7 +10,7 @@ import { wordsAtomFamily } from "./atoms/word-atoms";
 export const Item = ({ id, item }: { id: string, item: any, }) => {
 
     const isPublic = (item["user_id"] == null);
-    
+
     const audioUrl = "https://ggqoevksoazxxcijctks.supabase.co/storage/v1/object/public/items/1b929165-e504-4af6-9fb0-8760f362f43e/b7f6b34e-3ad3-44bd-a0b8-f76f50afafeb/audio"
     const scriptUrl = "https://ggqoevksoazxxcijctks.supabase.co/storage/v1/object/public/items/1b929165-e504-4af6-9fb0-8760f362f43e/b7f6b34e-3ad3-44bd-a0b8-f76f50afafeb/b7f6b34e-3ad3-44bd-a0b8-f76f50afafeb.json"
 
@@ -19,18 +19,18 @@ export const Item = ({ id, item }: { id: string, item: any, }) => {
     const [words, setWords] = useAtom(wordsAtomFamily(id));
 
     useEffect(() => {
-        
+
         if (!audio) {
-          setAudio(new Audio(audioUrl));
+            setAudio(new Audio(audioUrl));
         }
-      
+
         const fetchData = async () => {
-          const res = await fetch(scriptUrl);
-          setWords(await res.json());
+            const res = await fetch(scriptUrl);
+            setWords(await res.json());
         };
 
         fetchData();
-      }, [audioUrl, scriptUrl]);      
+    });
 
     return (
         <>
