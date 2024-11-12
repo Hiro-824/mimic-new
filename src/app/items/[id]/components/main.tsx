@@ -9,7 +9,7 @@ import { Content } from "./content";
 import { autoRecordOptionAtomFamily, isRecordingAtomFamily, micPermissionAtomFamily } from "../atoms/recording-atoms";
 import { Header } from "@/components/header";
 
-export const Main = ({ audioUrl, scriptUrl, id }: { audioUrl: string, scriptUrl: string, id: string }) => {
+export const Main = ({ id }: { id: string }) => {
 
     const [audio, setAudio] = useAtom(audioAtomFamily(id))
 
@@ -38,22 +38,6 @@ export const Main = ({ audioUrl, scriptUrl, id }: { audioUrl: string, scriptUrl:
         }
 
         checkMicPermission();
-    }, []);
-
-    useEffect(() => {
-        if (!audio || audio.currentSrc != audioUrl) {
-            setAudio(new Audio(audioUrl))
-        }
-    })
-
-    useEffect(() => {
-        async function fetchData() {
-            const res = await fetch(
-                scriptUrl
-            );
-            setWords(await res.json());
-        }
-        fetchData();
     }, []);
 
     useEffect(() => {
