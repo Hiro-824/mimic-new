@@ -7,9 +7,14 @@ import { useAtom } from "jotai";
 import { audioAtomFamily } from "./atoms/audio-atoms";
 import { wordsAtomFamily } from "./atoms/word-atoms";
 import { createClient } from '@/utils/supabase/client'
-import { getURL } from "next/dist/shared/lib/utils";
 
-export const Item = ({ uid, id, item }: { uid: string | null, id: string, item: any, }) => {
+interface ItemType {
+    user_id: string | null;
+    audio_name: string;
+    text_name: string;
+}
+
+export const Item = ({ uid, id, item }: { uid: string | null, id: string, item: ItemType, }) => {
 
     const isPublic = (item["user_id"] == null);
 
@@ -53,7 +58,7 @@ export const Item = ({ uid, id, item }: { uid: string | null, id: string, item: 
             getAudio();
         }
 
-        if(words.length === 0) {
+        if (words.length === 0) {
             getWords();
         }
 
