@@ -11,12 +11,12 @@ export const Header = () => {
             right="0"
             width="100%"
             backgroundColor="white"
-            borderBottom="0.5px solid"
-            borderBottomColor="gray.200"
+            //borderBottom="0.5px solid"
+            //borderBottomColor="gray.200"
             zIndex="1000"
         >
-            <Flex alignItems="center" p={2} maxW="1080px" mx="auto">
-                <Link>
+            <Flex alignItems="center" p={4} maxW="1080px" mx="auto">
+                <Link href="/items">
                     <Image
                         src="/logo-pale.svg"
                         alt="Home"
@@ -24,8 +24,8 @@ export const Header = () => {
                         objectFit="contain"
                     />
                 </Link>
-                <Spacer/>
-                <LogoutButton/>
+                <Spacer />
+                <LogoutButton />
             </Flex>
         </Box>
     )

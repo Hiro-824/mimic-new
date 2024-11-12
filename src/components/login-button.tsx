@@ -1,9 +1,7 @@
-"use client"
-
 import { Button } from "@chakra-ui/react"
-import { useRouter } from "next/navigation"
+import { useRouter } from "next/navigation";
 
-export const LogoutButton = () => {
+export const LoginButton = () => {
 
     const router = useRouter();
 
@@ -18,13 +16,9 @@ export const LogoutButton = () => {
             fontWeight="bold"
             //h="32px"
             px={6}
-            onClick={async () => {
-                router.push("/home");
-                await fetch('/auth/signout', { method: 'POST' });
-                window.location.href = '/';
-            }}
+            onClick={() => router.push("/login")}
         >
-            Log out
+            Sign In
         </Button>
     )
 }

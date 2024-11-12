@@ -25,9 +25,6 @@ export default async function LoginPage() {
         pt={24}
       >
         <Box maxW="md" w="full">
-          <Heading size="3xl" mb={8} textAlign="left">
-            ログイン
-          </Heading>
           <LoginForm />
         </Box>
       </Box>

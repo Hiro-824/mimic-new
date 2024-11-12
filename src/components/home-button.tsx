@@ -3,7 +3,7 @@
 import { Button } from "@chakra-ui/react"
 import { useRouter } from "next/navigation"
 
-export const LogoutButton = () => {
+export const HomeButton = () => {
 
     const router = useRouter();
 
@@ -18,13 +18,9 @@ export const LogoutButton = () => {
             fontWeight="bold"
             //h="32px"
             px={6}
-            onClick={async () => {
-                router.push("/home");
-                await fetch('/auth/signout', { method: 'POST' });
-                window.location.href = '/';
-            }}
+            onClick={() => router.push("/home")}
         >
-            Log out
+            ホームに戻る
         </Button>
     )
 }

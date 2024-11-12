@@ -1,9 +1,11 @@
 import { redirect } from 'next/navigation';
-import AccountForm from './account-form'
 import { createClient } from '@/utils/supabase/server'
+import { Box } from '@chakra-ui/react';
+import { Background } from '@/components/background';
+import { Account } from './account';
 
-export default async function Account() {
-  
+export default async function AccountPage() {
+
   const supabase = await createClient()
 
   const {
@@ -14,5 +16,10 @@ export default async function Account() {
     return redirect("/login");
   }
 
-  return <AccountForm user={user} />
+  return (
+    <Box>
+      <Account />
+      <Background />
+    </Box>
+  )
 }
