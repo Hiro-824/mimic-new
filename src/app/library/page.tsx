@@ -1,13 +1,17 @@
-import { Box } from "@chakra-ui/react";
-import { Library } from "./library";
-import { Background } from "@/components/background";
+import { BasicLayout } from "@/components/basic-layout";
+import { createClient } from "@/utils/supabase/server";
 
 export default async function LibraryPage() {
-  
-    return (
-      <Box>
-        <Library />
-        <Background />
-      </Box>
-    )
-  }
+
+  const supabase = await createClient()
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
+
+  return (
+    <BasicLayout user={user}>
+      <></>
+    </BasicLayout>
+  )
+}

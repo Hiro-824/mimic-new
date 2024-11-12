@@ -1,7 +1,9 @@
 import { Box, Flex, Link, Image, Spacer } from "@chakra-ui/react"
 import { LogoutButton } from "./logout-button"
+import { User } from "@supabase/supabase-js"
+import { LoginButton } from "./login-button"
 
-export const Header = () => {
+export const Header = ({ user }: { user: User | null}) => {
     return (
         <Box
             as="header"
@@ -25,7 +27,7 @@ export const Header = () => {
                     />
                 </Link>
                 <Spacer />
-                <LogoutButton />
+                {user === null ? <LoginButton /> : <LogoutButton /> }
             </Flex>
         </Box>
     )

@@ -1,7 +1,9 @@
+"use client"
+
 import { Button } from "@chakra-ui/react"
 import { useRouter } from "next/navigation"
 
-export const LogoutButton = () => {
+export const DemoButton = () => {
 
     const router = useRouter();
 
@@ -16,13 +18,9 @@ export const LogoutButton = () => {
             fontWeight="bold"
             //h="32px"
             px={6}
-            onClick={async () => {
-                router.push("/home");
-                await fetch('/auth/signout', { method: 'POST' });
-                window.location.href = '/';
-            }}
+            onClick={() => router.push("/items/798b371e-4ac5-4d54-9548-a426344d937e")}
         >
-            Log out
+            ログイン不要で試す
         </Button>
     )
 }

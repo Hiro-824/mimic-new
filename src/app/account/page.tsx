@@ -1,8 +1,5 @@
-import { redirect } from 'next/navigation';
-import { createClient } from '@/utils/supabase/server'
-import { Box } from '@chakra-ui/react';
-import { Background } from '@/components/background';
-import { Account } from './account';
+import { BasicLayout } from "@/components/basic-layout";
+import { createClient } from "@/utils/supabase/server";
 
 export default async function AccountPage() {
 
@@ -12,14 +9,9 @@ export default async function AccountPage() {
     data: { user },
   } = await supabase.auth.getUser()
 
-  if (!user) {
-    return redirect("/login");
-  }
-
   return (
-    <Box>
-      <Account />
-      <Background />
-    </Box>
+    <BasicLayout user={user}>
+      <></>
+    </BasicLayout>
   )
 }

@@ -20,9 +20,6 @@ export const Item = ({ uid, id, item }: { uid: string | null, id: string, item: 
 
     const supabase = createClient()
 
-    //const audioUrl = "https://ggqoevksoazxxcijctks.supabase.co/storage/v1/object/public/items/1b929165-e504-4af6-9fb0-8760f362f43e/b7f6b34e-3ad3-44bd-a0b8-f76f50afafeb/audio"
-    //const scriptUrl = "https://ggqoevksoazxxcijctks.supabase.co/storage/v1/object/public/items/1b929165-e504-4af6-9fb0-8760f362f43e/b7f6b34e-3ad3-44bd-a0b8-f76f50afafeb/b7f6b34e-3ad3-44bd-a0b8-f76f50afafeb.json"
-
     const [audio, setAudio] = useAtom(audioAtomFamily(id))
 
     const [words, setWords] = useAtom(wordsAtomFamily(id));
