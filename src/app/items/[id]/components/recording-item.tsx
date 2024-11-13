@@ -14,7 +14,7 @@ import { MimicPlayerSimultaneous } from "./mimic-player-simultaneous";
 import { MimicPlayerOriginalToMimic } from "./mimic-player-original-to-mimic";
 import { MimicPlayerMimicToOriginal } from "./mimic-player-mimic-to-original";
 
-export const RecordingItem = ({ id, index, recording, onChange }: { id: string, index: number, recording: Recording, onChange: (updatedRecording: Recording) => void }) => {
+export const RecordingItem = ({ id, index, recording, onChange, onDeleted }: { id: string, index: number, recording: Recording, onChange: (updatedRecording: Recording) => void, onDeleted: () => void }) => {
 
     const [mimicPlaying, setMimicPlaying] = useState(false);
 
@@ -91,7 +91,7 @@ export const RecordingItem = ({ id, index, recording, onChange }: { id: string, 
                 <Stack gap={4}>
                     <Flex justifyContent={"space-between"} alignItems={"center"} gap={4}>
                         <Text lineClamp="2">{text}</Text>
-                        <Button 
+                        <Button
                             variant={"subtle"}
                             onClick={handleSelectionChange}
                         >
@@ -106,7 +106,14 @@ export const RecordingItem = ({ id, index, recording, onChange }: { id: string, 
                         <Button variant={"subtle"}>
                             クラウドに保存
                         </Button>
-                        <Button variant={"subtle"}>
+                        <Button
+                            variant={"subtle"}
+                            onClick={() => {
+                                if (window.confirm("録音を削除します（元に戻せません）よろしいですか？")) {
+                                    onDeleted();
+                                }
+                            }}
+                        >
                             削除
                         </Button>
                     </Flex>

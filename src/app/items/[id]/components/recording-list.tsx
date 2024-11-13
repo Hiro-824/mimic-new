@@ -16,7 +16,13 @@ export const RecordingList = ({ id }: { id: string }) => {
                 recording.id === updatedRecording.id ? updatedRecording : recording
             )
         );
-    };    
+    };
+
+    const handleRecordingDelete = (id: string) => {
+        setRecordings((prevRecordings) =>
+            prevRecordings.filter((recording) => recording.id !== id)
+        );
+    };
 
     return (
         <Box p={4} borderRadius={"sm"} maxH={"calc(100vh - 435px)"} overflow={"auto"} width={"100%"} backgroundColor={"white"}>
@@ -30,6 +36,7 @@ export const RecordingList = ({ id }: { id: string }) => {
                                 index={index}
                                 recording={recording}
                                 onChange={(updatedRecording: Recording) => handleRecordingChange(updatedRecording)}
+                                onDeleted={() => handleRecordingDelete(recording.id)}
                             />
                         ))}
                     </AccordionRoot>
