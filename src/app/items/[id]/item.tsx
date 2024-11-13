@@ -72,7 +72,7 @@ export const Item = ({ user, id, item }: { user: User | null, id: string, item: 
     );*/
 
     return (
-        <BasicLayout user={user}>
+        <BasicLayout user={user} hasFooter={false}>
             <Main id={id} />
         </BasicLayout>
     )

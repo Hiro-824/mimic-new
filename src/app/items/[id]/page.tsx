@@ -18,7 +18,7 @@ export default async function Id({ params, }: { params: Promise<{ id: string }> 
 
   return (
     <>
-      <Item id={id} item={item} user={data.user} />
+      <Item id={id} item={item} user={data.user}/>
     </>
   );
 }

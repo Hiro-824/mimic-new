@@ -10,9 +10,10 @@ import { User } from "@supabase/supabase-js"
 type Props = {
     children: ReactNode
     user: User | null
+    hasFooter?: boolean
 }
 
-export const BasicLayout = ({ children, user }: Props) => {
+export const BasicLayout = ({ children, user, hasFooter = true }: Props) => {
     return (
         <Box>
             <Background />
@@ -20,7 +21,7 @@ export const BasicLayout = ({ children, user }: Props) => {
             <Box px={4} maxW="1080px" mx="auto" minH={"100vh"}>
                 {children}
             </Box>
-            <Footer />
+            {hasFooter && <Footer />}
         </Box>
     )
 }
