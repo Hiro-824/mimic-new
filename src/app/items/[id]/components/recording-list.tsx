@@ -1,24 +1,24 @@
 import { Box, Text, Center, Stack } from "@chakra-ui/react";
 import { useAtom } from "jotai";
 import { RecordingItem } from "./recording-item";
-import { recordingsAtomFamily } from "../atoms/recording-atoms";
 import {
     AccordionItem,
     AccordionItemContent,
     AccordionItemTrigger,
     AccordionRoot,
 } from "@/components/ui/accordion"
+import { recordingsAtom } from "../atoms/recording-atoms";
 
 export const RecordingList = ({ id }: { id: string }) => {
 
-    const [recordings, setRecordings] = useAtom(recordingsAtomFamily(id));
+    const [recordings] = useAtom(recordingsAtom);
 
     return (
         <Box p={4} borderRadius={"sm"} maxH={"calc(100vh - 375px)"} overflow={"auto"} width={"100%"} backgroundColor={"white"}>
-            {recordings.length > 0 ? (
+            {recordings.filter(recording => recording.itemId === id).length > 0 ? (
                 <Stack gap="4">
                     <AccordionRoot variant={"subtle"}>
-                        {[...recordings].reverse().map((recording, index) => (
+                        {[...recordings].reverse().filter(recording => recording.itemId === id).map((recording, index) => (
                             <RecordingItem
                                 id={id}
                                 key={index}

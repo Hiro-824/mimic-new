@@ -4,7 +4,7 @@ import RecordRTC from "recordrtc";
 import { useAtom } from "jotai";
 import { FaMicrophone, FaMicrophoneSlash, FaStop } from "react-icons/fa";
 import { useEffect, useRef, useState } from "react";
-import { autoRecordOptionAtomFamily, isRecordingAtomFamily, micPermissionAtomFamily, recordingsAtomFamily } from "../atoms/recording-atoms";
+import { autoRecordOptionAtomFamily, isRecordingAtomFamily, micPermissionAtomFamily, recordingsAtom } from "../atoms/recording-atoms";
 import { Recording } from "../atoms/recording-atoms";
 import { audioPlayingAtomFamily } from "../atoms/audio-atoms";
 import { selectedAreaAtomFamily } from "../atoms/word-atoms";
@@ -16,7 +16,7 @@ export const RecordButton = ({ id }: { id: string }) => {
 
     const [isRecording, setIsRecording] = useAtom(isRecordingAtomFamily(id));
 
-    const [recordings, setRecordings] = useAtom(recordingsAtomFamily(id));
+    const [recordings, setRecordings] = useAtom(recordingsAtom);
 
     const [audioPlaying, setAudioPlaying] = useAtom(audioPlayingAtomFamily(id));
 
@@ -49,7 +49,6 @@ export const RecordButton = ({ id }: { id: string }) => {
             newRecorder.startRecording();
             setRecorder(newRecorder);
             setIsRecording(true);
-
         } catch (err) {
             console.log(err);
         }
@@ -62,14 +61,15 @@ export const RecordButton = ({ id }: { id: string }) => {
                 setIsRecording(false);
                 setOption("none");
 
-                const id =
+                const randomId =
                     Math.random().toString(32).substring(2) +
                     new Date().getTime().toString(32);
 
                 const newRecording: Recording = {
                     audioURL: URL.createObjectURL(blob),
                     blob,
-                    id,
+                    id: randomId,
+                    itemId: id,
                     start: selectedArea ? selectedArea.start : null,
                     end: selectedArea ? selectedArea.end : null,
                     recDate: getCurrentDate(),
