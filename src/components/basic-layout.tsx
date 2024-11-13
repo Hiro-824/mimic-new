@@ -17,7 +17,7 @@ export const BasicLayout = ({ children, user }: Props) => {
         <Box>
             <Background />
             <Header user={user} />
-            <Box pt={240} px={4} maxW="1080px" mx="auto" minH={"100vh"}>
+            <Box px={4} maxW="1080px" mx="auto" minH={"100vh"}>
                 {children}
             </Box>
             <Footer />

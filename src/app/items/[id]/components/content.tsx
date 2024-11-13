@@ -108,7 +108,7 @@ export const Content = ({ id }: {id: string}) => {
     return (
         <Box width={"100%"} onMouseUp={handleMouseUp}>
             <Box maxW="1080px" mx="auto">
-                <Box width={"64%"} pb={"200px"} px={"16px"}>
+                <Box width={"64%"} pt={"200px"} pb={"200px"} px={"16px"}>
                     <Text
                         textAlign={"justify"}
                         fontSize={'md'}

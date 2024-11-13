@@ -14,7 +14,7 @@ export default async function HomePage() {
     return (
         <BasicLayout user={user}>
             <VStack alignItems={"start"} gap={8}>
-                <Box>
+                <Box pt={"240px"}>
                     <Heading size={"5xl"} fontWeight="normal" lineHeight="2">
                         <Text as="span" fontWeight="bold" fontSize={"6xl"}>音声</Text>を使った
                         <Text as="span" fontWeight="bold" fontSize={"6xl"} backgroundColor={"blue.100"} pt={4} pb={8}>英語学習</Text><br />
