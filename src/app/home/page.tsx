@@ -2,6 +2,7 @@ import { BasicLayout } from "@/components/basic-layout";
 import { createClient } from "@/utils/supabase/server";
 import { Heading, Text, VStack, Box } from "@chakra-ui/react";
 import { DemoButton } from "./demo-button";
+import { UserButton } from "./user-button";
 
 export default async function HomePage() {
 
@@ -22,7 +23,7 @@ export default async function HomePage() {
                     </Heading>
                     <Text lineHeight={""} as="span" fontSize={"xl"}>Mimicは、テキストと音声を組み合わせたUIで、<br />インタラクティブに英語を学べる英語学習サービスです。</Text>
                 </Box>
-                <DemoButton />
+                {(user === null) ? <DemoButton /> : <UserButton />}
             </VStack>
         </BasicLayout>
     )
