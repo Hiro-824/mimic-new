@@ -23,6 +23,7 @@ export default async function LoginPage() {
         justifyContent="center"
         alignItems="top"
         pt={24}
+        px={8}
       >
         <Box maxW="md" w="full">
           <LoginForm />
