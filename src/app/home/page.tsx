@@ -13,7 +13,7 @@ export default async function HomePage() {
 
     return (
         <BasicLayout user={user}>
-            <VStack alignItems={"start"} gap={8}>
+            <VStack pb={"240px"} alignItems={"start"} gap={8}>
                 <Box pt={"240px"}>
                     <Heading size={"5xl"} fontWeight="normal" lineHeight="2">
                         <Text as="span" fontWeight="bold" fontSize={"6xl"}>音声</Text>を使った
