@@ -14,7 +14,7 @@ import { MimicPlayerSimultaneous } from "./mimic-player-simultaneous";
 import { MimicPlayerOriginalToMimic } from "./mimic-player-original-to-mimic";
 import { MimicPlayerMimicToOriginal } from "./mimic-player-mimic-to-original";
 
-export const RecordingItem = ({ id, index, recording }: { id: string, index: number, recording: Recording }) => {
+export const RecordingItem = ({ id, index, recording, onChange }: { id: string, index: number, recording: Recording, onChange: (updatedRecording: Recording) => void }) => {
 
     const [mimicPlaying, setMimicPlaying] = useState(false);
 
@@ -55,6 +55,19 @@ export const RecordingItem = ({ id, index, recording }: { id: string, index: num
 
     const text = (recording.start !== null && recording.end !== null) ? words.slice(recording.start, recording.end + 1).map(word => word.text).join(" ") : null;
 
+    const handleSelectionChange = () => {
+        const updatedRecording: Recording = {
+            audioURL: recording.audioURL,
+            blob: recording.blob,
+            id: recording.id,
+            itemId: recording.itemId,
+            start: selectedArea ? selectedArea.start : null,
+            end: selectedArea ? selectedArea.end : null,
+            recDate: recording.recDate,
+        };
+        onChange(updatedRecording);
+    }
+
     return (
         <AccordionItem key={index} value={recording.id}>
             <AccordionItemTrigger>
@@ -78,7 +91,10 @@ export const RecordingItem = ({ id, index, recording }: { id: string, index: num
                 <Stack gap={4}>
                     <Flex justifyContent={"space-between"} alignItems={"center"} gap={4}>
                         <Text lineClamp="2">{text}</Text>
-                        <Button variant={"subtle"}>
+                        <Button 
+                            variant={"subtle"}
+                            onClick={handleSelectionChange}
+                        >
                             選択部分を指定
                         </Button>
                     </Flex>
