@@ -1,5 +1,5 @@
-import { Box, IconButton, Flex, Stack, Text, Button, Spacer } from "@chakra-ui/react";
-import { Key, useEffect, useRef, useState } from "react";
+import { IconButton, Flex, Stack, Text, Button, Spacer, AbsoluteCenter } from "@chakra-ui/react";
+import { useEffect, useRef, useState } from "react";
 import { Recording } from "../atoms/recording-atoms";
 import { FaPause, FaPlay } from "react-icons/fa";
 import {
@@ -83,9 +83,17 @@ export const RecordingItem = ({ id, index, recording }: { id: string, index: num
                         </Button>
                     </Flex>
                     <Spacer />
-                    <MimicPlayerOriginalToMimic id={id} recording={recording} mimicPlaying={mimicPlaying} setMimicPlaying={setMimicPlaying}/>
-                    <MimicPlayerMimicToOriginal id={id} recording={recording} mimicPlaying={mimicPlaying} setMimicPlaying={setMimicPlaying}/>
-                    <MimicPlayerSimultaneous id={id} recording={recording} mimicPlaying={mimicPlaying} setMimicPlaying={setMimicPlaying}/>
+                    <MimicPlayerOriginalToMimic id={id} recording={recording} mimicPlaying={mimicPlaying} setMimicPlaying={setMimicPlaying} />
+                    <MimicPlayerMimicToOriginal id={id} recording={recording} mimicPlaying={mimicPlaying} setMimicPlaying={setMimicPlaying} />
+                    <MimicPlayerSimultaneous id={id} recording={recording} mimicPlaying={mimicPlaying} setMimicPlaying={setMimicPlaying} />
+                    <Flex justifyContent={"end"} alignItems={"center"} gap={4}>
+                        <Button variant={"subtle"}>
+                            クラウドに保存
+                        </Button>
+                        <Button variant={"subtle"}>
+                            削除
+                        </Button>
+                    </Flex>
                 </Stack>
             </AccordionItemContent>
         </AccordionItem>

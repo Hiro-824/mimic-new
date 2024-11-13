@@ -14,10 +14,10 @@ export const RecordingList = ({ id }: { id: string }) => {
     const [recordings] = useAtom(recordingsAtom);
 
     return (
-        <Box p={4} borderRadius={"sm"} maxH={"calc(100vh - 375px)"} overflow={"auto"} width={"100%"} backgroundColor={"white"}>
+        <Box p={4} borderRadius={"sm"} maxH={"calc(100vh - 435px)"} overflow={"auto"} width={"100%"} backgroundColor={"white"}>
             {recordings.filter(recording => recording.itemId === id).length > 0 ? (
                 <Stack gap="4">
-                    <AccordionRoot variant={"subtle"}>
+                    <AccordionRoot variant={"outline"} collapsible>
                         {[...recordings].reverse().filter(recording => recording.itemId === id).map((recording, index) => (
                             <RecordingItem
                                 id={id}

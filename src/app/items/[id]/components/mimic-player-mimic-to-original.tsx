@@ -26,7 +26,8 @@ export const MimicPlayerMimicToOriginal = ({ id, recording, mimicPlaying, setMim
             <IconButton
                 variant={"ghost"} rounded="full" size={"sm"}
                 onClick={() => {
-                    if (recording.start && recording.end) {
+                    if (recording.start !== null && recording.end !== null) {
+                        console.log("selected areaを設定します")
                         setSelectedArea({ start: recording.start, end: recording.end });
                     }
                     if (selectedArea) {

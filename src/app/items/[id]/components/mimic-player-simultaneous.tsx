@@ -17,7 +17,7 @@ export const MimicPlayerSimultaneous = ({ id, recording, mimicPlaying, setMimicP
             <IconButton
                 variant={"ghost"} rounded="full" size={"sm"}
                 onClick={() => {
-                    if (recording.start && recording.end) {
+                    if (recording.start !== null && recording.end !== null) {
                         setSelectedArea({ start: recording.start, end: recording.end });
                     }
                     if(selectedArea) {
