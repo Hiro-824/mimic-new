@@ -9,6 +9,10 @@ import {
     ProgressCircleRing,
     ProgressCircleRoot,
 } from "@/components/ui/progress-circle"
+import {
+    PasswordInput,
+    PasswordStrengthMeter,
+} from "@/components/ui/password-input"
 
 interface FormValues {
     email: string
@@ -32,7 +36,6 @@ export const LoginForm = () => {
     })
 
     const [hasSubmitted, setHasSubmitted] = useState(false);
-
 
     if (!hasSubmitted) {
         return (
@@ -62,7 +65,7 @@ export const LoginForm = () => {
                             invalid={!!errors.password}
                             errorText={errors.password?.message}
                         >
-                            <Input
+                            <PasswordInput
                                 {...register("password", { required: "パスワードは必須です" })}
                             />
                         </Field>
