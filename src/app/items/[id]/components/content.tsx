@@ -4,7 +4,13 @@ import { useEffect, useRef, useState } from "react";
 import { selectedAreaAtomFamily, wordsAtomFamily } from "../atoms/word-atoms";
 import { audioAtomFamily, audioPlayingAtomFamily } from "../atoms/audio-atoms";
 
-export const Content = ({ id }: {id: string}) => {
+import {
+    Skeleton,
+    SkeletonCircle,
+    SkeletonText,
+} from "@/components/ui/skeleton"
+
+export const Content = ({ id }: { id: string }) => {
 
     const [words, setWords] = useAtom(wordsAtomFamily(id));
 
@@ -27,7 +33,7 @@ export const Content = ({ id }: {id: string}) => {
             let endIndex: number | null = null;
 
             let selectionOffset = 0;
-            if(selectedText[0] === " ") selectionOffset = 1;
+            if (selectedText[0] === " ") selectionOffset = 1;
 
             spanRefs.current.forEach((spanRef, index) => {
                 if (spanRef && selection.containsNode(spanRef, true)) {
@@ -52,19 +58,19 @@ export const Content = ({ id }: {id: string}) => {
 
     useEffect(() => {
         if (!audio) return;
-    
+
         const interval = setInterval(() => {
-            if(!audioPlaying) return;
+            if (!audioPlaying) return;
 
             const currentTime = audio.currentTime;
-    
+
             // Find the word currently being played based on the current time
             const currentIndex = words.findIndex(word => {
                 const start = word.start / 1000000 - 0.1;
                 const end = word.end / 1000000 - 0.1;
                 return currentTime >= start && currentTime <= end;
             });
-    
+
             if (currentIndex !== -1 && spanRefs.current[currentIndex]) {
                 // Scroll the currently played word into view
                 spanRefs.current[currentIndex].scrollIntoView({
@@ -74,7 +80,7 @@ export const Content = ({ id }: {id: string}) => {
                 });
             }
         }, 100); // Adjust interval as needed
-    
+
         return () => clearInterval(interval);
     }, [audio, words, audioPlaying]);
 
@@ -105,11 +111,8 @@ export const Content = ({ id }: {id: string}) => {
         }
     }, [selectedArea, spanRefs]);
 
-    return (
-        <Box width={"100%"} onMouseUp={handleMouseUp}>
-            <Box maxW="1080px" mx="auto">
-                <Box width={"64%"} pt={"200px"} pb={"200px"} px={"16px"}>
-                    <Text
+    const text = (
+        <Text
                         textAlign={"justify"}
                         fontSize={'md'}
                         lineHeight={'1.8'}
@@ -141,7 +144,7 @@ export const Content = ({ id }: {id: string}) => {
                                 <Span
                                     key={index}
                                     onClick={handleWordClick}
-                                    onMouseDown={isSelected && (selectedArea.end  - selectedArea.start >= 100) ? handleMouseDown : () => {}}
+                                    onMouseDown={isSelected && (selectedArea.end - selectedArea.start >= 100) ? handleMouseDown : () => { }}
                                     ref={(el: HTMLSpanElement) => spanRefs.current[index] = el}
                                 >
                                     <Span
@@ -165,6 +168,17 @@ export const Content = ({ id }: {id: string}) => {
                             );
                         })}
                     </Text>
+    )
+
+    const loading = (
+        <SkeletonText zIndex={-1} noOfLines={100} gap="4" />
+    )
+
+    return (
+        <Box width={"100%"} onMouseUp={handleMouseUp}>
+            <Box maxW="1080px" mx="auto">
+                <Box width={"64%"} pt={"200px"} pb={"200px"} px={"16px"}>
+                    {(words.length > 0) ? text : loading}
                 </Box>
             </Box>
         </Box>
