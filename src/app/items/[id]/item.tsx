@@ -8,12 +8,7 @@ import { wordsAtomFamily } from "./atoms/word-atoms";
 import { createClient } from '@/utils/supabase/client'
 import { BasicLayout } from "@/components/basic-layout";
 import { User } from "@supabase/supabase-js";
-
-interface ItemType {
-    user_id: string | null;
-    audio_name: string;
-    text_name: string;
-}
+import { ItemType } from "@/types/item";
 
 export const Item = ({ user, id, item }: { user: User | null, id: string, item: ItemType, }) => {
 
@@ -63,13 +58,6 @@ export const Item = ({ user, id, item }: { user: User | null, id: string, item: 
         }
 
     });
-
-    /*return (
-        <>
-            <Box zIndex={-1} bg={"#F0F8FF"} position={"fixed"} top={0} bottom={0} right={0} left={0} />
-            <Main id={id} />
-        </>
-    );*/
 
     return (
         <BasicLayout user={user} hasFooter={false}>

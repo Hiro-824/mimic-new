@@ -3,7 +3,6 @@
 import { Box, Center, Link, Stack, Text } from "@chakra-ui/react"
 
 export const SignUpForm = () => {
-
     return (
         <Box
             bg="white"

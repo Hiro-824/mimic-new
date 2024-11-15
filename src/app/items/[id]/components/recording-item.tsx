@@ -26,6 +26,8 @@ export const RecordingItem = ({ id, index, recording, onChange, onDeleted }: { i
 
     const [words] = useAtom(wordsAtomFamily(id));
 
+    const [audioURL, setAudioURL] = useState<string>();
+
     useEffect(() => {
         if (audioRef.current) {
             if (mimicPlaying) {

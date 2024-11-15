@@ -56,7 +56,7 @@ export const RecordButton = ({ id }: { id: string }) => {
 
     const stopRecording = () => {
         if (recorder) {
-            recorder.stopRecording(() => {
+            recorder.stopRecording(async () => {
                 const blob = recorder.getBlob();
                 setIsRecording(false);
                 setOption("none");
@@ -67,7 +67,7 @@ export const RecordButton = ({ id }: { id: string }) => {
 
                 const newRecording: Recording = {
                     audioURL: URL.createObjectURL(blob),
-                    blob,
+                    blob: blob,
                     id: randomId,
                     itemId: id,
                     start: selectedArea ? selectedArea.start : null,
