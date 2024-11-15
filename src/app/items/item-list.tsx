@@ -1,12 +1,15 @@
 "use client"
 
 import { ItemType } from "@/types/item";
-import { Box, Heading, Flex, IconButton, VStack } from "@chakra-ui/react"
+import { Box, Heading, Flex, IconButton, VStack, Spacer, FileUploadFileAcceptDetails } from "@chakra-ui/react"
 import { ItemTile } from "./item-tile";
-import { MdDelete } from "react-icons/md";
 import { FaPlus } from "react-icons/fa6";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export const ItemList = ({ items }: { items: ItemType[] }) => {
+
+    const router = useRouter();
 
     return (
         <Box
@@ -18,11 +21,12 @@ export const ItemList = ({ items }: { items: ItemType[] }) => {
                     Home
                 </Heading>
                 <IconButton
+                    onClick={() => router.push("/items/upload")}
+                    mx={4}
                     variant={"surface"}
                     aria-label="Add"
-                    onClick={() => console.log("Add button clicked")}
                 >
-                    <FaPlus/>
+                    <FaPlus />
                 </IconButton>
             </Flex>
             <Box
@@ -30,7 +34,7 @@ export const ItemList = ({ items }: { items: ItemType[] }) => {
                 p={2}
                 rounded="md"
             >
-                <VStack gap={4}>
+                <VStack gap={0}>
                     {items.map((item, index) => {
                         return (
                             <ItemTile key={index} item={item} index={index} />

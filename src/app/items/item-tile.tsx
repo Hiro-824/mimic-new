@@ -12,7 +12,7 @@ export const ItemTile = ({ item, index }: { item: ItemType, index: number }) => 
         day: 'numeric',
         hour: '2-digit',
         minute: '2-digit',
-    }).format(new Date(item.created_at));
+    }).format(new Date(item.created_at!));
 
     return (
         <HStack
@@ -22,9 +22,9 @@ export const ItemTile = ({ item, index }: { item: ItemType, index: number }) => 
             borderRadius="md"
             _hover={{ bg: "gray.50" }} // Change this to your desired hover color
         >
-            <Link width={"100%"} padding={4} href={`/items/${item.id}`} style={{ textDecoration: 'none', width: '100%' }}>
+            <Link width={"100%"} p={4} href={`/items/${item.id}`} style={{ textDecoration: 'none', width: '100%' }}>
                 <VStack align="start" gap={0}>
-                    <Text fontWeight="bold">{item.title}</Text>
+                    <Text fontWeight="bold">{item.title ?? "Untitled"}</Text>
                     <Text fontSize="sm" color="gray.500">{formattedDate}</Text>
                 </VStack>
             </Link>
