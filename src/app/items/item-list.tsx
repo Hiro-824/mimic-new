@@ -6,6 +6,7 @@ import { ItemTile } from "./item-tile";
 import { FaPlus } from "react-icons/fa6";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import { NewItemButton } from "./new-item-button";
 
 export const ItemList = ({ items }: { items: ItemType[] }) => {
 
@@ -20,14 +21,7 @@ export const ItemList = ({ items }: { items: ItemType[] }) => {
                 <Heading size="3xl" textAlign="left">
                     Home
                 </Heading>
-                <IconButton
-                    onClick={() => router.push("/items/upload")}
-                    mx={4}
-                    variant={"surface"}
-                    aria-label="Add"
-                >
-                    <FaPlus />
-                </IconButton>
+                <NewItemButton />
             </Flex>
             <Box
                 bg="white"
